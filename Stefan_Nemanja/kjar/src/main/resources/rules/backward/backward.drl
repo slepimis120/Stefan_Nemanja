@@ -1,0 +1,8 @@
+package backward;
+
+rule "Example Rule"
+when
+    // conditions
+then
+    // actions
+end
