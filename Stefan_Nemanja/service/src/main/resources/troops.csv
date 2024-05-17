@@ -1,0 +1,142 @@
+name,type,city,healthPoints,minDmg,maxDmg,speed,size,ammo,vulnerability,fightValue
+Pikeman,MELEE,Castle,10,1,3,4,1,0,,100
+Halberdier,MELEE,Castle,10,2,3,5,1,0,,115
+Archer,RANGED,Castle,10,2,3,4,1,12,,115
+Marksman,RANGED,Castle,10,2,3,6,1,24,,115
+Griffin,MELEE,Castle,25,3,6,6,2,0,,324
+Royal Griffin,MELEE,Castle,25,3,6,9,2,0,,364
+Swordsman,MELEE,Castle,35,6,9,5,1,0,,445
+Crusader,MELEE,Castle,35,7,10,6,1,0,,588
+Monk,RANGED,Castle,30,10,12,5,1,12,,485
+Zealot,RANGED,Castle,30,10,12,7,1,24,,500
+Cavalier,MELEE,Castle,30,15,25,7,2,0,,1668
+Champion,MELEE,Castle,100,20,25,9,2,0,,1800
+Angel,MELEE,Castle,200,50,50,12,1,0,,3585
+Archangel,MELEE,Castle,250,50,50,18,1,0,,6033
+Centaur,MELEE,Rampart,8,2,3,6,2,0,,100
+Centaur Captain,MELEE,Rampart,10,2,3,8,2,0,,115
+Dwarf,MELEE,Rampart,20,2,4,3,1,0,,194
+Battle Dwarf,MELEE,Rampart,20,2,4,5,1,0,,209
+Wood Elf,RANGED,Rampart,15,3,5,6,1,24,,195
+Grand Elf,RANGED,Rampart,15,3,5,7,1,24,,195
+Pegasus,MELEE,Rampart,30,5,9,8,2,0,,407
+Silver Pegasus,MELEE,Rampart,30,5,9,12,2,0,,418
+Dendroid Guard,MELEE,Rampart,55,10,14,3,1,0,,690
+Dendroid Soldier,MELEE,Rampart,65,10,14,4,1,0,,765
+Unicorn,MELEE,Rampart,90,18,22,7,2,0,,1548
+War Unicorn,MELEE,Rampart,110,18,22,9,2,0,,2030
+Green Dragon,MELEE,Rampart,180,40,50,10,2,0,,3654
+Gold Dragon,MELEE,Rampart,250,40,50,16,2,0,,6220
+Gremlin,MELEE,Tower,4,1,2,4,1,0,,55
+Master Gremlin,MELEE,Tower,4,1,2,5,1,0,,55
+Stone Gargoyle,MELEE,Tower,16,2,3,6,1,0,,150
+Obsidian Gargoyle,MELEE,Tower,16,2,3,9,1,0,,155
+Stone Golem,MELEE,Tower,30,4,5,3,1,0,,339
+Iron Golem,MELEE,Tower,35,4,5,5,1,0,,412
+Mage,RANGED,Tower,25,7,9,5,1,24,,418
+Arch Mage,RANGED,Tower,30,7,9,7,1,24,,467
+Genie,MELEE,Tower,40,13,16,7,1,0,,680
+Master Genie,MELEE,Tower,40,13,16,11,1,0,,748
+Naga,MELEE,Tower,110,20,20,5,2,0,,2016
+Naga Queen,MELEE,Tower,110,30,30,7,2,0,,2840
+Giant,MELEE,Tower,150,40,60,7,1,0,,3146
+Titan,MELEE,Tower,300,40,60,11,1,0,,5000
+Imp,MELEE,Inferno,4,1,2,5,1,0,,50
+Familiar,MELEE,Inferno,4,1,2,7,1,0,,60
+Gog,RANGED,Inferno,13,2,4,4,1,12,,145
+Magog,RANGED,Inferno,13,2,4,6,1,24,,210
+Hell Hound,MELEE,Inferno,25,2,7,7,2,0,,275
+Cerberus,MELEE,Inferno,25,2,7,8,2,0,,308
+Demon,MELEE,Inferno,35,7,9,5,1,0,,445
+Horned Demon,MELEE,Inferno,40,7,9,6,1,0,,480
+Pit Fiend,MELEE,Inferno,45,13,17,6,1,0,,765
+Pit Lord,MELEE,Inferno,45,13,17,7,1,0,,1071
+Efreeti,MELEE,Inferno,90,16,24,9,1,0,,1413
+Efreet Sultan,MELEE,Inferno,90,16,24,13,1,0,,1584
+Devil,MELEE,Inferno,160,30,40,11,1,0,,3759
+Arch Devil,MELEE,Inferno,200,30,40,17,1,0,,5243
+Skeleton,MELEE,Necropolis,6,1,3,4,1,0,,75
+Skeleton Warrior,MELEE,Necropolis,6,1,3,5,1,0,,85
+Walking Dead,MELEE,Necropolis,15,2,3,3,1,0,,140
+Zombie,MELEE,Necropolis,20,2,3,4,1,0,,160
+Wight,MELEE,Necropolis,18,3,5,5,1,0,,231
+Wraith,MELEE,Necropolis,18,3,5,7,1,0,,252
+Vampire,MELEE,Necropolis,30,5,8,6,1,0,,518
+Vampire Lord,MELEE,Necropolis,40,5,8,9,1,0,,652
+Lich,RANGED,Necropolis,30,11,13,6,1,12,,742
+Power Lich,RANGED,Necropolis,40,11,15,7,1,24,,889
+Black Knight,MELEE,Necropolis,120,15,30,7,2,0,,1753
+Dread Knight,MELEE,Necropolis,120,15,30,9,2,0,,2029
+Bone Dragon,MELEE,Necropolis,150,25,50,9,2,0,,2420
+Ghost Dragon,MELEE,Necropolis,200,25,50,14,2,0,,3228
+Troglodyte,MELEE,Dungeon,5,1,3,4,1,0,,73
+Infernal Troglodyte,MELEE,Dungeon,6,1,3,5,1,0,,84
+Harpy,MELEE,Dungeon,14,1,4,6,1,0,,140
+Harpy Hag,MELEE,Dungeon,14,1,4,9,1,0,,196
+Beholder,RANGED,Dungeon,22,3,5,5,1,12,,240
+Evil Eye,RANGED,Dungeon,22,3,5,7,1,24,,245
+Medusa,RANGED,Dungeon,25,6,8,5,2,4,,379
+Medusa Queen,RANGED,Dungeon,30,6,8,6,2,8,,423
+Minotaur,MELEE,Dungeon,50,12,20,6,1,0,,835
+Minotaur King,MELEE,Dungeon,50,12,20,8,1,0,,890
+Manticore,MELEE,Dungeon,80,14,20,7,2,0,,1215
+Scorpicore,MELEE,Dungeon,80,14,20,11,2,0,,1248
+Red Dragon,MELEE,Dungeon,180,40,50,11,2,0,,3762
+Black Dragon,MELEE,Dungeon,300,40,50,15,2,0,,6783
+Goblin,MELEE,Stronghold,5,1,2,5,1,0,,60
+Hobgoblin,MELEE,Stronghold,5,1,2,7,1,0,,65
+Wolf Rider,MELEE,Stronghold,10,2,4,6,2,0,,130
+Wolf Raider,MELEE,Stronghold,10,3,4,8,2,0,,174
+Orc,RANGED,Stronghold,15,2,5,4,1,12,,175
+Orc Chieftain,RANGED,Stronghold,20,2,5,5,1,24,,200
+Ogre,MELEE,Stronghold,40,6,12,4,1,0,,520
+Ogre Mage,MELEE,Stronghold,60,6,12,5,1,0,,672
+Roc,MELEE,Stronghold,60,11,15,7,2,0,,790
+Thunderbird,MELEE,Stronghold,60,11,15,11,2,0,,869
+Cyclops,RANGED,Stronghold,70,16,20,6,1,16,,1055
+Cyclops King,RANGED,Stronghold,70,16,20,8,1,24,,1110
+Behemoth,MELEE,Stronghold,160,30,50,6,2,0,,3162
+Ancient Behemoth,MELEE,Stronghold,300,30,50,9,2,0,,5397
+Gnoll,MELEE,Fortress,6,2,3,4,1,0,,70
+Gnoll Marauder,MELEE,Fortress,6,2,3,5,1,0,,90
+Lizardman,RANGED,Fortress,14,2,3,4,1,12,,115
+Lizard Warrior,RANGED,Fortress,15,2,5,5,1,24,,130
+Serpent Fly,MELEE,Fortress,20,2,5,9,1,0,,215
+Dragon Fly,MELEE,Fortress,20,2,5,13,1,0,,250
+Basilisk,MELEE,Fortress,35,6,10,5,2,0,,506
+Greater Basilisk,MELEE,Fortress,40,6,10,7,2,0,,561
+Gorgon,MELEE,Fortress,70,12,16,5,2,0,,890
+Mighty Gorgon,MELEE,Fortress,70,12,16,6,2,0,,1028
+Wyvern,MELEE,Fortress,70,14,18,7,2,0,,1050
+Wyvern Monarch,MELEE,Fortress,70,18,22,11,2,0,,1518
+Hydra,MELEE,Fortress,175,25,45,5,2,0,,4120
+Chaos Hydra,MELEE,Fortress,250,25,45,7,2,0,,5272
+Pixie,MELEE,Conflux,3,1,2,7,1,0,,40
+Sprite,MELEE,Conflux,3,1,3,9,1,0,,70
+Air Elemental,MELEE,Conflux,25,2,8,7,1,0,Armageddon/Lightning Bolt/Chain Lightning/Titan's Lightning Bolt,324
+Storm Elemental,RANGED,Conflux,25,2,8,8,1,24,Armageddon/Lightning Bolt/Chain Lightning/Titan's Lightning Bolt,324
+Water Elemental,MELEE,Conflux,30,3,7,5,2,0,Armageddon/Fireball/Inferno,315
+Ice Elemental,RANGED,Conflux,30,3,7,6,2,24,Armageddon/Fireball/Inferno,315
+Fire Elemental,MELEE,Conflux,35,4,6,6,1,0,Ice Bolt/Frost Ring,345
+Energy Elemental,MELEE,Conflux,35,4,6,8,1,0,Ice Bolt/Frost Ring,360
+Earth Elemental,MELEE,Conflux,40,4,8,4,1,0,Meteor Shower,415
+Magma Elemental,MELEE,Conflux,40,6,10,6,1,0,Meteor Shower,490
+Psychic Elemental,MELEE,Conflux,75,10,20,7,1,0,,1431
+Magic Elemental,MELEE,Conflux,80,15,25,9,1,0,,1724
+Firebird,MELEE,Conflux,150,30,40,15,2,0,,3248
+Phoenix,MELEE,Conflux,200,30,40,21,2,0,,4929
+Peasant,MELEE,Neutral,1,1,1,3,1,0,,15
+Halfling,RANGED,Neutral,4,1,3,5,1,24,,60
+Boar,MELEE,Neutral,15,2,3,6,2,0,,145
+Rogue,MELEE,Neutral,10,2,4,6,1,0,,135
+Mummy,MELEE,Neutral,30,3,5,5,1,0,,270
+Nomad,MELEE,Neutral,30,2,6,7,2,0,,285
+Sharpshooter,RANGED,Neutral,15,8,10,9,1,32,,415
+Troll,MELEE,Neutral,40,10,15,7,1,0,,1024
+Gold Golem,MELEE,Neutral,50,8,10,5,1,0,,600
+Diamond Golem,MELEE,Neutral,60,10,14,5,1,0,,775
+Enchanter,RANGED,Neutral,30,14,14,9,1,32,,805
+Faerie Dragon,MELEE,Neutral,500,20,30,15,2,0,,16317
+Rust Dragon,MELEE,Neutral,750,50,50,17,2,0,,24030
+Crystal Dragon,MELEE,Neutral,800,60,75,16,2,0,,30260
+Azure Dragon,MELEE,Neutral,1000,70,80,19,2,0,,56315

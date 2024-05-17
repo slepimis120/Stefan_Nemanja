@@ -3,25 +3,110 @@ package stefan.nemanja.model.models;
 import jakarta.persistence.*;
 
 @Entity
-public class Troop {
+@Inheritance(strategy=InheritanceType.TABLE_PER_CLASS)
+@DiscriminatorColumn(name = "TROOPTYPE")
+public abstract class Troop {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
+
+    @Column(nullable = false)
+    private String name;
+
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private TroopType type;
+
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private City city;
 
     @Column(nullable = false)
     private int healthPoints;
 
-    @ManyToOne
-    @JoinColumn(name = "unit_id", nullable = false)
-    private Unit unit;
+    @Column(nullable = false)
+    private int minDmg;
 
-    public Troop(Long id, int healthPoints, Unit unit) {
-        this.id = id;
-        this.healthPoints = healthPoints;
-        this.unit = unit;
+    @Column(nullable = false)
+    private int maxDmg;
+
+    @Column(nullable = false)
+    private int speed;
+
+    @Column(nullable = false)
+    private int size;
+
+    @Column(nullable = true)
+    private String vulnerabilities;
+
+    @Column(nullable = false)
+    private float fightValue;
+
+    public enum TroopType {
+        MELEE, RANGED
     }
 
-    public Troop() {
+    public enum City {
+        CASTLE,
+        RAMPART,
+        TOWER,
+        CONFLUX,
+        NECROPOLIS,
+        FORTRESS,
+        DUNGEON,
+        STRONGHOLD,
+        INFERNO,
+        NEUTRAL
+    }
+
+    public Troop(Long id, String name, TroopType type, City city, int healthPoints, int minDmg, int maxDmg, int speed, int size, String vulnerabilities, float fightValue) {
+        this.id = id;
+        this.name = name;
+        this.type = type;
+        this.city = city;
+        this.healthPoints = healthPoints;
+        this.minDmg = minDmg;
+        this.maxDmg = maxDmg;
+        this.speed = speed;
+        this.size = size;
+        this.vulnerabilities = vulnerabilities;
+        this.fightValue = fightValue;
+    }
+
+    public Troop(){
+
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public TroopType getType() {
+        return type;
+    }
+
+    public void setType(TroopType type) {
+        this.type = type;
+    }
+
+    public City getCity() {
+        return city;
+    }
+
+    public void setCity(City city) {
+        this.city = city;
     }
 
     public int getHealthPoints() {
@@ -32,19 +117,51 @@ public class Troop {
         this.healthPoints = healthPoints;
     }
 
-    public Unit getUnit() {
-        return unit;
+    public int getMinDmg() {
+        return minDmg;
     }
 
-    public void setUnit(Unit unit) {
-        this.unit = unit;
+    public void setMinDmg(int minDmg) {
+        this.minDmg = minDmg;
     }
 
-    public Long getId() {
-        return id;
+    public int getMaxDmg() {
+        return maxDmg;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setMaxDmg(int maxDmg) {
+        this.maxDmg = maxDmg;
+    }
+
+    public int getSpeed() {
+        return speed;
+    }
+
+    public void setSpeed(int speed) {
+        this.speed = speed;
+    }
+
+    public int getSize() {
+        return size;
+    }
+
+    public void setSize(int size) {
+        this.size = size;
+    }
+
+    public float getFightValue() {
+        return fightValue;
+    }
+
+    public void setFightValue(float fightValue) {
+        this.fightValue = fightValue;
+    }
+
+    public String getVulnerabilities() {
+        return vulnerabilities;
+    }
+
+    public void setVulnerabilities(String vulnerabilities) {
+        this.vulnerabilities = vulnerabilities;
     }
 }

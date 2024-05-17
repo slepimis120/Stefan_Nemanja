@@ -2,6 +2,9 @@ package stefan.nemanja.model.models;
 
 import jakarta.persistence.*;
 
+import java.util.EnumSet;
+import java.util.Set;
+
 @Entity
 public class Spell {
     @Id
@@ -11,20 +14,34 @@ public class Spell {
     @Column(nullable = false)
     private String name;
 
+    @ElementCollection(targetClass = School.class)
+    @Enumerated(EnumType.STRING)
+    @CollectionTable(name = "spell_school")
+    @Column(nullable = false, name = "school")
+    private Set<School> school;
+
     @Column(nullable = false)
-    private int spellCost;
+    private int level;
+
+    @Column(nullable = false)
+    private int cost;
 
     @Column(nullable = false)
     private int damage;
 
+    public enum School {
+        AIR, EARTH, FIRE, WATER
+    }
+
     public Spell() {
     }
 
-    public Spell(Long id, String name, int spellCost, int damage) {
-
+    public Spell(Long id, String name, Set<School> school, int level, int cost, int damage) {
         this.id = id;
         this.name = name;
-        this.spellCost = spellCost;
+        this.school = school;
+        this.level = level;
+        this.cost = cost;
         this.damage = damage;
     }
 
@@ -36,12 +53,12 @@ public class Spell {
         this.name = name;
     }
 
-    public int getSpellCost() {
-        return spellCost;
+    public int getCost() {
+        return cost;
     }
 
-    public void setSpellCost(int spellCost) {
-        this.spellCost = spellCost;
+    public void setCost(int cost) {
+        this.cost = cost;
     }
 
     public int getDamage() {
@@ -58,5 +75,21 @@ public class Spell {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public Set<School> getSchool() {
+        return school;
+    }
+
+    public void setSchool(Set<School> school) {
+        this.school = school;
+    }
+
+    public int getLevel() {
+        return level;
+    }
+
+    public void setLevel(int level) {
+        this.level = level;
     }
 }

@@ -1,0 +1,40 @@
+import java.util.List;
+import stefan.nemanja.model.models.dto.CurrentUserDTO;
+import stefan.nemanja.model.models.dto.UnitDTO;
+import stefan.nemanja.model.models.rules.TroopRule;
+import stefan.nemanja.model.models.Spell;
+import stefan.nemanja.model.models.Troop;
+import java.util.Arrays
+import stefan.nemanja.model.models.rules.ResultRules;
+
+
+rule "Can user cast a spell"
+agenda-group "spell-casting"
+salience 1
+when
+    $result : ResultRules()
+    $currentUser : CurrentUserDTO(usedSpell == false)
+    $spells : List() from collect(Spell())
+    $cheapestSpellPoints : Number() from accumulate (
+        $spell : Spell() from $spells,
+        min($spell.getCost())
+    )
+    eval($currentUser.getSpellPoints() > $cheapestSpellPoints.intValue())
+then
+    $currentUser.setCanCastSpell(true);
+end
+
+rule "Can cast spell on a vulnerable unit"
+agenda-group "spell-casting"
+salience 2
+when
+    $result : ResultRules()
+    $currentUser : CurrentUserDTO()
+    $enemyTroopRule : TroopRule(getIsFriendly() == false)
+    $spells : Spell(cost <= $currentUser.getSpellPoints()) from collect(Spell())
+    $troop : Troop(this == $enemyTroopRule.getStrongestTroopWithVulnerabilityList(Arrays.asList($spells)))
+    eval($troop != null)
+then
+    $result.setResult("Jebi kevu " + $troop.getName());
+    $currentUser.setCanCastSpell(false);
+end

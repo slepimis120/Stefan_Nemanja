@@ -1,0 +1,14 @@
+name, school, level, cost, damage
+Magic Arrow,AIR/EARTH/FIRE/WATER,1,5,40
+Lightning Bolt,AIR,2,10,75
+Destroy Undead,AIR,3,15,60
+Lightning Chain,AIR,4,24,140
+Titan's Lightning Bolt,AIR,5,0,600
+Death Ripple,EARTH,2,10,35
+Meteor Shower,EARTH,4,16,125
+Implosion,EARTH,5,25,375
+Fireball,FIRE,3,15,70
+Armageddon,FIRE,4,24,170
+Inferno,FIRE,4,16,90
+Ice Bolt,WATER,2,8,70
+Frost Ring,WATER,3,12,70

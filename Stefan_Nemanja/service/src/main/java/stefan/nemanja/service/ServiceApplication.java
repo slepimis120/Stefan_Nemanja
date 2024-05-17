@@ -10,10 +10,12 @@ import org.springframework.context.annotation.Bean;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 import java.util.Arrays;
 
-@SpringBootApplication
+@SpringBootApplication(scanBasePackages = {"stefan.nemanja"})
+@EnableJpaRepositories("stefan.nemanja.service.repositories")
 public class ServiceApplication {
 
 	private static Logger log = LoggerFactory.getLogger(ServiceApplication.class);

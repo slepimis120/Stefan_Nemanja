@@ -1,8 +1,0 @@
-package cep;
-
-rule "Example Rule 2"
-when
-    // conditions
-then
-    // actions
-end
