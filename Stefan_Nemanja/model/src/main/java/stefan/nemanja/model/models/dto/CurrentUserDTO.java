@@ -58,4 +58,12 @@ public class CurrentUserDTO {
     public void setOurTroops(List<UnitDTO> ourTroops) {
         this.ourTroops = ourTroops;
     }
+
+    public TerrainDTO getTerrain() {
+        return terrain;
+    }
+
+    public void setTerrain(TerrainDTO terrain) {
+        this.terrain = terrain;
+    }
 }

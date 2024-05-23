@@ -1,6 +1,35 @@
-rule "Example Rule"
-when
-    // conditions
-then
-    // actions
+import stefan.nemanja.model.models.rules.UserTroopRule;
+import stefan.nemanja.model.models.rules.ResultRules;
+import java.util.List;
+import java.util.ArrayList
+import stefan.nemanja.model.models.rules.PositionList;
+import stefan.nemanja.model.models.rules.Position;
+
+query "Calculate Neighbors" ( Position currentPosition, PositionList neighbors, int depth )
+    $i : Integer() from currentPosition.getI()
+    $j : Integer() from currentPosition.getJ()
+    $newNeighbors : PositionList() from calculateNeighbors(currentPosition, depth)
 end
+
+function List<Position> calculateNeighbors(Position currentPosition, int depth) {
+    List<Position> neighbors = new ArrayList<>();
+    int i = currentPosition.getI();
+    int j = currentPosition.getJ();
+
+    neighbors.add(new Position(i, j - 1, depth));
+    neighbors.add(new Position(i, j + 1, depth));
+
+    if (i % 2 == 0) {
+        neighbors.add(new Position(i - 1, j, depth));
+        neighbors.add(new Position(i - 1, j + 1, depth));
+        neighbors.add(new Position(i + 1, j, depth));
+        neighbors.add(new Position(i + 1, j + 1, depth));
+    } else {
+        neighbors.add(new Position(i - 1, j, depth));
+        neighbors.add(new Position(i - 1, j - 1, depth));
+        neighbors.add(new Position(i + 1, j, depth));
+        neighbors.add(new Position(i + 1, j - 1, depth));
+    }
+
+    return neighbors;
+}

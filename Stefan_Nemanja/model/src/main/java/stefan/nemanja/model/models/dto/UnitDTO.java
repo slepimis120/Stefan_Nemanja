@@ -5,15 +5,17 @@ public class UnitDTO {
     private int health;
     private int iPosition;
     private int jPosition;
+    private boolean onMove = false;
 
     public UnitDTO() {
     }
 
-    public UnitDTO(Long id, int health, int iPosition, int jPosition) {
+    public UnitDTO(Long id, int health, int iPosition, int jPosition, boolean onMove) {
         this.id = id;
         this.health = health;
         this.iPosition = iPosition;
         this.jPosition = jPosition;
+        this.onMove = onMove;
     }
 
     public int getHealth() {
@@ -46,5 +48,13 @@ public class UnitDTO {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public boolean isOnMove() {
+        return onMove;
+    }
+
+    public void setOnMove(boolean onMove) {
+        this.onMove = onMove;
     }
 }

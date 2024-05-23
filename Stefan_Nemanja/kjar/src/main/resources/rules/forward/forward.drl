@@ -1,7 +1,7 @@
 import java.util.List;
 import stefan.nemanja.model.models.dto.CurrentUserDTO;
 import stefan.nemanja.model.models.dto.UnitDTO;
-import stefan.nemanja.model.models.rules.TroopRule;
+import stefan.nemanja.model.models.rules.UserTroopRule;
 import stefan.nemanja.model.models.Spell;
 import stefan.nemanja.model.models.Troop;
 import java.util.Arrays
@@ -21,6 +21,7 @@ when
     )
     eval($currentUser.getSpellPoints() > $cheapestSpellPoints.intValue())
 then
+    $result.setResult("Mozes bacati spellove");
     $currentUser.setCanCastSpell(true);
 end
 
@@ -30,9 +31,9 @@ salience 2
 when
     $result : ResultRules()
     $currentUser : CurrentUserDTO()
-    $enemyTroopRule : TroopRule(getIsFriendly() == false)
+    $enemyUserTroopRule : UserTroopRule(getIsFriendly() == false)
     $spells : Spell(cost <= $currentUser.getSpellPoints()) from collect(Spell())
-    $troop : Troop(this == $enemyTroopRule.getStrongestTroopWithVulnerabilityList(Arrays.asList($spells)))
+    $troop : Troop(this == $enemyUserTroopRule.getStrongestTroopWithVulnerabilityList(Arrays.asList($spells)))
     eval($troop != null)
 then
     $result.setResult("Jebi kevu " + $troop.getName());
