@@ -6,17 +6,19 @@ public class UnitDTO {
     private int health;
     private int iPosition;
     private int jPosition;
+    private boolean hasWaited = true;
     private boolean onMove = false;
 
     public UnitDTO() {
     }
 
-    public UnitDTO(Long id, int troopCount, int health, int iPosition, int jPosition, boolean onMove) {
+    public UnitDTO(Long id, int troopCount, int health, int iPosition, int jPosition, boolean hasWaited, boolean onMove) {
         this.id = id;
         this.troopCount = troopCount;
         this.health = health;
         this.iPosition = iPosition;
         this.jPosition = jPosition;
+        this.hasWaited = hasWaited;
         this.onMove = onMove;
     }
 
@@ -58,6 +60,14 @@ public class UnitDTO {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public boolean isHasWaited() {
+        return hasWaited;
+    }
+
+    public void setHasWaited(boolean hasWaited) {
+        this.hasWaited = hasWaited;
     }
 
     public boolean isOnMove() {

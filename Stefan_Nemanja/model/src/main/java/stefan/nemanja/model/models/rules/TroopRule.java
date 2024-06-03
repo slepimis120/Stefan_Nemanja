@@ -19,12 +19,13 @@ public class TroopRule {
     private float fightValue;
     private int iPosition;
     private int jPosition;
+    private boolean hasWaited = true;
     private boolean onMove = false;
 
     public TroopRule() {
     }
 
-    public TroopRule(Long id, String name, Troop.TroopType type, Troop.City city, int troopCount, int troopHealthPoints, int totalHealthPoints, int minDmg, int maxDmg, int speed, int size, String vulnerabilities, float fightValue, int iPosition, int jPosition, boolean onMove) {
+    public TroopRule(Long id, String name, Troop.TroopType type, Troop.City city, int troopCount, int troopHealthPoints, int totalHealthPoints, int minDmg, int maxDmg, int speed, int size, String vulnerabilities, float fightValue, int iPosition, int jPosition, boolean hasWaited, boolean onMove) {
         this.id = id;
         this.name = name;
         this.type = type;
@@ -40,6 +41,7 @@ public class TroopRule {
         this.fightValue = fightValue;
         this.iPosition = iPosition;
         this.jPosition = jPosition;
+        this.hasWaited = hasWaited;
         this.onMove = onMove;
     }
 
@@ -59,6 +61,7 @@ public class TroopRule {
         this.fightValue = troop.getFightValue();
         this.iPosition = unitDTO.getiPosition();
         this.jPosition = unitDTO.getjPosition();
+        this.hasWaited = unitDTO.isHasWaited();
         this.onMove = unitDTO.isOnMove();
     }
 
@@ -180,6 +183,14 @@ public class TroopRule {
 
     public void setjPosition(int jPosition) {
         this.jPosition = jPosition;
+    }
+
+    public boolean isHasWaited() {
+        return hasWaited;
+    }
+
+    public void setHasWaited(boolean hasWaited) {
+        this.hasWaited = hasWaited;
     }
 
     public boolean isOnMove() {

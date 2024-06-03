@@ -37,17 +37,6 @@ function void updateNeighbors(Position currentPosition, PositionList neighbors, 
                 break;
             }
         }
-
-        if (!exists) {
-            neighbors.getPositions().add(newPos);
-            if (depth > 1) {
-                updateNeighbors(newPos, neighbors, depth - 1);
-            }
-        } else if (depthUpdated) {
-            if (depth > 1) {
-                updateNeighbors(newPos, neighbors, depth - 1);
-            }
-        }
     }
 }
 
