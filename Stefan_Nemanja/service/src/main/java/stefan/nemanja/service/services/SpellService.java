@@ -16,7 +16,6 @@ import stefan.nemanja.service.repositories.TroopRepository;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service
 public class SpellService {
@@ -30,14 +29,8 @@ public class SpellService {
         this.kieSession = kieContainer.getKieBase("forwardKbase").newKieSession();
     }
 
-    public ResultRules getRecommendedSpell(CurrentUserDTO currentUserDTO){
+    public ResultRules castSpell(CurrentUserDTO currentUserDTO) {
         List<Spell> spells = getSpellsByIds(currentUserDTO.getAvailableSpells());
-        List<Troop> enemyTroops = troopRepository.findAllById(currentUserDTO.getEnemyTroops().stream()
-                .map(UnitDTO::getId)
-                .collect(Collectors.toList()));
-        List<Troop> ownTroops = troopRepository.findAllById(currentUserDTO.getOurTroops().stream()
-                .map(UnitDTO::getId)
-                .collect(Collectors.toList()));
 
         UserTroopRule enemyUserTroopRule = createUserTroopRule(currentUserDTO, false);
         UserTroopRule ownUserTroopRule = createUserTroopRule(currentUserDTO, true);
@@ -57,10 +50,6 @@ public class SpellService {
         kieSession.dispose();
 
         return resultRules;
-    }
-
-    public List<Spell> getAllSpells(){
-        return spellRepository.findAll();
     }
 
     public List<Spell> getSpellsByIds(List<Long> spellIds){

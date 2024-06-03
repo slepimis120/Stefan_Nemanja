@@ -6,11 +6,11 @@ import stefan.nemanja.model.models.Spell;
 import stefan.nemanja.model.models.Troop;
 import java.util.Arrays
 import stefan.nemanja.model.models.rules.ResultRules;
+import stefan.nemanja.model.models.rules.TroopRule;
 
 
 rule "Can user cast a spell"
-agenda-group "spell-casting"
-salience 1
+agenda-group "spell-check"
 when
     $result : ResultRules()
     $currentUser : CurrentUserDTO(usedSpell == false)
@@ -21,13 +21,12 @@ when
     )
     eval($currentUser.getSpellPoints() > $cheapestSpellPoints.intValue())
 then
-    $result.setResult("Mozes bacati spellove");
     $currentUser.setCanCastSpell(true);
 end
 
 rule "Can cast spell on a vulnerable unit"
 agenda-group "spell-casting"
-salience 2
+salience 1
 when
     $result : ResultRules()
     $currentUser : CurrentUserDTO()
@@ -36,6 +35,39 @@ when
     $troop : Troop(this == $enemyUserTroopRule.getStrongestTroopWithVulnerabilityList(Arrays.asList($spells)))
     eval($troop != null)
 then
-    $result.setResult("Jebi kevu " + $troop.getName());
     $currentUser.setCanCastSpell(false);
+end
+
+rule "Can cast spell on a ranged unit"
+agenda-group "spell-casting"
+salience 2
+when
+then
+end
+
+rule "Cast spell on unit with most health"
+agenda-group "spell-casting"
+salience 3
+when
+then
+end
+
+rule "Calculate troop strength"
+agenda-group "troop-strength"
+when
+    $result : ResultRules()
+    $ourTroops : UserTroopRule(getIsFriendly() == true)
+    $enemyTroops : UserTroopRule(getIsFriendly() == false)
+    $ourStrength : Number() from accumulate (
+        $troop : TroopRule() from $ourTroops.getTroops(),
+        sum($troop.getFightValue() * $troop.getTroopCount())
+    )
+    $enemyStrength : Number() from accumulate (
+        $troop : TroopRule() from $enemyTroops.getTroops(),
+        sum($troop.getFightValue() * $troop.getTroopCount())
+    )
+then
+    double percentageDifference = ($ourStrength.doubleValue() / $enemyStrength.doubleValue() - 1) * 100;
+    String strongerSide = $ourStrength.doubleValue() > $enemyStrength.doubleValue() ? "USER's" : "ENEMY's";
+    $result.setResult("Fight value of user: " + $ourStrength + ". Fight value of enemy: " + $enemyStrength + ". The stronger side is " + strongerSide + " by " + Math.round(Math.abs(percentageDifference)) + "%");
 end

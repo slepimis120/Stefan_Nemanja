@@ -7,20 +7,24 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import stefan.nemanja.model.models.dto.CurrentUserDTO;
 import stefan.nemanja.model.models.rules.ResultRules;
-import stefan.nemanja.service.services.TroopService;
+import stefan.nemanja.service.services.GameService;
 
 @RestController
-@RequestMapping("/troop")
-public class TroopController {
-    private final TroopService troopService;
+@RequestMapping("/strategy")
+public class GameController {
+    private final GameService gameService;
 
-    public TroopController(TroopService troopService) {
-        this.troopService = troopService;
+    public GameController(GameService gameService) {
+        this.gameService = gameService;
     }
 
     @PostMapping("/bestMove")
     public ResponseEntity<ResultRules> nextMove(@RequestBody CurrentUserDTO currentUserDTO) {
-        ResultRules troopMovement = troopService.bestMove(currentUserDTO);
-        return ResponseEntity.ok(troopMovement);
+        return ResponseEntity.ok(gameService.getBestMove(currentUserDTO));
+    }
+
+    @PostMapping("/troopStrength")
+    public ResponseEntity<ResultRules> troopStrength(@RequestBody CurrentUserDTO currentUserDTO) {
+        return ResponseEntity.ok(gameService.getTroopStrength(currentUserDTO));
     }
 }

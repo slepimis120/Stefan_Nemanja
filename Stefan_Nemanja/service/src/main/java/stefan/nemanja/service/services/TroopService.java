@@ -49,7 +49,6 @@ public class TroopService {
         }
     }
 
-    // Placeholder
     private boolean canAttack(CurrentUserDTO currentUserDTO, List<Troop> enemyTroops) {
         return false;
     }

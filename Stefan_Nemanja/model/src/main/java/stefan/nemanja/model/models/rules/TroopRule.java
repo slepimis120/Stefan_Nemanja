@@ -8,7 +8,9 @@ public class TroopRule {
     private String name;
     private Troop.TroopType type;
     private Troop.City city;
-    private int healthPoints;
+    private int troopCount;
+    private int troopHealthPoints;
+    private int totalHealthPoints;
     private int minDmg;
     private int maxDmg;
     private int speed;
@@ -22,12 +24,14 @@ public class TroopRule {
     public TroopRule() {
     }
 
-    public TroopRule(Long id, String name, Troop.TroopType type, Troop.City city, int healthPoints, int minDmg, int maxDmg, int speed, int size, String vulnerabilities, float fightValue, int iPosition, int jPosition, boolean onMove) {
+    public TroopRule(Long id, String name, Troop.TroopType type, Troop.City city, int troopCount, int troopHealthPoints, int totalHealthPoints, int minDmg, int maxDmg, int speed, int size, String vulnerabilities, float fightValue, int iPosition, int jPosition, boolean onMove) {
         this.id = id;
         this.name = name;
         this.type = type;
         this.city = city;
-        this.healthPoints = healthPoints;
+        this.troopCount = troopCount;
+        this.troopHealthPoints = troopHealthPoints;
+        this.totalHealthPoints = totalHealthPoints;
         this.minDmg = minDmg;
         this.maxDmg = maxDmg;
         this.speed = speed;
@@ -44,7 +48,9 @@ public class TroopRule {
         this.name = troop.getName();
         this.type = troop.getType();
         this.city = troop.getCity();
-        this.healthPoints = unitDTO.getHealth();
+        this.troopCount = unitDTO.getTroopCount();
+        this.troopHealthPoints = troop.getHealthPoints();
+        this.totalHealthPoints = unitDTO.getHealth();
         this.minDmg = troop.getMinDmg();
         this.maxDmg = troop.getMaxDmg();
         this.speed = troop.getSpeed();
@@ -88,12 +94,28 @@ public class TroopRule {
         this.city = city;
     }
 
-    public int getHealthPoints() {
-        return healthPoints;
+    public int getTroopCount() {
+        return troopCount;
     }
 
-    public void setHealthPoints(int healthPoints) {
-        this.healthPoints = healthPoints;
+    public void setTroopCount(int troopCount) {
+        this.troopCount = troopCount;
+    }
+
+    public int getTroopHealthPoints() {
+        return troopHealthPoints;
+    }
+
+    public void setTroopHealthPoints(int troopHealthPoints) {
+        this.troopHealthPoints = troopHealthPoints;
+    }
+
+    public int getTotalHealthPoints() {
+        return totalHealthPoints;
+    }
+
+    public void setTotalHealthPoints(int totalHealthPoints) {
+        this.totalHealthPoints = totalHealthPoints;
     }
 
     public int getMinDmg() {

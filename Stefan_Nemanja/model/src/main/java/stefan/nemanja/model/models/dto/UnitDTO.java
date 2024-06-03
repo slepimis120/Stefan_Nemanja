@@ -2,6 +2,7 @@ package stefan.nemanja.model.models.dto;
 
 public class UnitDTO {
     private Long id;
+    private int troopCount;
     private int health;
     private int iPosition;
     private int jPosition;
@@ -10,12 +11,21 @@ public class UnitDTO {
     public UnitDTO() {
     }
 
-    public UnitDTO(Long id, int health, int iPosition, int jPosition, boolean onMove) {
+    public UnitDTO(Long id, int troopCount, int health, int iPosition, int jPosition, boolean onMove) {
         this.id = id;
+        this.troopCount = troopCount;
         this.health = health;
         this.iPosition = iPosition;
         this.jPosition = jPosition;
         this.onMove = onMove;
+    }
+
+    public int getTroopCount() {
+        return troopCount;
+    }
+
+    public void setTroopCount(int troopCount) {
+        this.troopCount = troopCount;
     }
 
     public int getHealth() {

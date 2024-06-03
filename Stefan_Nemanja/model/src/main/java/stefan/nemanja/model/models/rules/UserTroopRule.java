@@ -37,7 +37,7 @@ public class UserTroopRule {
         TroopRule strongestTroop = null;
         for (TroopRule troop : troops) {
             for (Spell spell : spellList){
-                if (troop.getVulnerabilities() != null && troop.getVulnerabilities().contains(spell.getName()) && (strongestTroop == null || troop.getHealthPoints() > strongestTroop.getHealthPoints())) {
+                if (troop.getVulnerabilities() != null && troop.getVulnerabilities().contains(spell.getName()) && (strongestTroop == null || troop.getTotalHealthPoints() > strongestTroop.getTotalHealthPoints())) {
                     strongestTroop = troop;
                     break;
                 }

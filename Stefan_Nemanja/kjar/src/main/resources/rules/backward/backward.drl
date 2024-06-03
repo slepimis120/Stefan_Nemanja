@@ -1,35 +1,61 @@
-import stefan.nemanja.model.models.rules.UserTroopRule;
-import stefan.nemanja.model.models.rules.ResultRules;
-import java.util.List;
-import java.util.ArrayList
-import stefan.nemanja.model.models.rules.PositionList;
 import stefan.nemanja.model.models.rules.Position;
+import stefan.nemanja.model.models.rules.PositionList;
+import java.util.List;
+import java.util.ArrayList;
 
-query "Calculate Neighbors" ( Position currentPosition, PositionList neighbors, int depth )
-    $i : Integer() from currentPosition.getI()
-    $j : Integer() from currentPosition.getJ()
-    $newNeighbors : PositionList() from calculateNeighbors(currentPosition, depth)
-end
-
-function List<Position> calculateNeighbors(Position currentPosition, int depth) {
-    List<Position> neighbors = new ArrayList<>();
+function void updateNeighbors(Position currentPosition, PositionList neighbors, int depth) {
+    List<Position> newNeighbors = new ArrayList<>();
     int i = currentPosition.getI();
     int j = currentPosition.getJ();
 
-    neighbors.add(new Position(i, j - 1, depth));
-    neighbors.add(new Position(i, j + 1, depth));
+    newNeighbors.add(new Position(i, j - 1, depth));
+    newNeighbors.add(new Position(i, j + 1, depth));
 
     if (i % 2 == 0) {
-        neighbors.add(new Position(i - 1, j, depth));
-        neighbors.add(new Position(i - 1, j + 1, depth));
-        neighbors.add(new Position(i + 1, j, depth));
-        neighbors.add(new Position(i + 1, j + 1, depth));
+        newNeighbors.add(new Position(i - 1, j, depth));
+        newNeighbors.add(new Position(i - 1, j + 1, depth));
+        newNeighbors.add(new Position(i + 1, j, depth));
+        newNeighbors.add(new Position(i + 1, j + 1, depth));
     } else {
-        neighbors.add(new Position(i - 1, j, depth));
-        neighbors.add(new Position(i - 1, j - 1, depth));
-        neighbors.add(new Position(i + 1, j, depth));
-        neighbors.add(new Position(i + 1, j - 1, depth));
+        newNeighbors.add(new Position(i - 1, j, depth));
+        newNeighbors.add(new Position(i - 1, j - 1, depth));
+        newNeighbors.add(new Position(i + 1, j, depth));
+        newNeighbors.add(new Position(i + 1, j - 1, depth));
     }
 
-    return neighbors;
+    for (Position newPos : newNeighbors) {
+        boolean exists = false;
+        boolean depthUpdated = false;
+
+        for (Position pos : neighbors.getPositions()) {
+            if (pos.getI() == newPos.getI() && pos.getJ() == newPos.getJ()) {
+                exists = true;
+                if (pos.getDepth() < newPos.getDepth()) {
+                    pos.setDepth(newPos.getDepth());
+                    depthUpdated = true;
+                }
+                break;
+            }
+        }
+
+        if (!exists) {
+            neighbors.getPositions().add(newPos);
+            if (depth > 1) {
+                updateNeighbors(newPos, neighbors, depth - 1);
+            }
+        } else if (depthUpdated) {
+            if (depth > 1) {
+                updateNeighbors(newPos, neighbors, depth - 1);
+            }
+        }
+    }
 }
+
+rule "Calculate Neighbors"
+when
+    $currentPosition : Position()
+    $neighbors : PositionList()
+    $depth : Integer()
+then
+    updateNeighbors($currentPosition, $neighbors, $depth);
+end
