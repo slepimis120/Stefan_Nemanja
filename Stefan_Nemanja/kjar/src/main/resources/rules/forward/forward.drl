@@ -1,18 +1,19 @@
-import java.util.List;
-import stefan.nemanja.model.models.dto.CurrentUserDTO;
-import stefan.nemanja.model.models.dto.UnitDTO;
-import stefan.nemanja.model.models.rules.UserTroopRule;
-import stefan.nemanja.model.models.Spell;
-import stefan.nemanja.model.models.Troop;
-import java.util.Arrays
-import stefan.nemanja.model.models.rules.ResultRules;
-import stefan.nemanja.model.models.rules.TroopRule;
+package forward
 
+import java.util.List
+import stefan.nemanja.model.models.dto.CurrentUserDTO
+import stefan.nemanja.model.models.dto.UnitDTO
+import stefan.nemanja.model.models.rules.UserTroopRule
+import stefan.nemanja.model.models.Spell
+import stefan.nemanja.model.models.Troop
+import java.util.Arrays
+import stefan.nemanja.model.models.rules.ResultRules
+import stefan.nemanja.model.models.rules.TroopRule
+import stefan.nemanja.model.models.rules.TroopSpellCast
 
 rule "Can user cast a spell"
 agenda-group "spell-check"
 when
-    $result : ResultRules()
     $currentUser : CurrentUserDTO(usedSpell == false)
     $spells : List() from collect(Spell())
     $cheapestSpellPoints : Number() from accumulate (
@@ -22,6 +23,8 @@ when
     eval($currentUser.getSpellPoints() > $cheapestSpellPoints.intValue())
 then
     $currentUser.setCanCastSpell(true);
+    update($currentUser);
+
 end
 
 rule "Can cast spell on a vulnerable unit"
@@ -29,27 +32,63 @@ agenda-group "spell-casting"
 salience 1
 when
     $result : ResultRules()
-    $currentUser : CurrentUserDTO()
     $enemyUserTroopRule : UserTroopRule(getIsFriendly() == false)
-    $spells : Spell(cost <= $currentUser.getSpellPoints()) from collect(Spell())
-    $troop : Troop(this == $enemyUserTroopRule.getStrongestTroopWithVulnerabilityList(Arrays.asList($spells)))
+    $spells : List() from collect(Spell())
+    $troop : TroopSpellCast() from $enemyUserTroopRule.getStrongestTroopWithVulnerabilityList($spells)
     eval($troop != null)
 then
-    $currentUser.setCanCastSpell(false);
+    $result.setResult("You should cast " + $troop.getSpellName() +" spell on " + $troop.getTroopName() + " because of spell vulnerability.");
+    update($result);
 end
 
 rule "Can cast spell on a ranged unit"
 agenda-group "spell-casting"
 salience 2
 when
+    $result : ResultRules()
+    $enemyUserTroopRule : UserTroopRule(getIsFriendly() == false)
+    $spells : List() from collect(Spell())
+
+    $maxSpellDamage : Number() from accumulate(
+        Spell( $damage : damage ),
+        max($damage)
+    )
+    $maxSpell : Spell( damage == $maxSpellDamage )
+
+    $maxTroopDamage : Number() from accumulate(
+        TroopRule( getType() == Troop.TroopType.RANGED, $damage : getMaxDmg() ) from $enemyUserTroopRule.getTroops(),
+        max($damage)
+    )
+    $maxTroop : TroopRule( getType() == Troop.TroopType.RANGED, getMaxDmg() == $maxTroopDamage ) from $enemyUserTroopRule.getTroops()
+    eval($maxTroop != null)
 then
+    $result.setResult("You should cast " + $maxSpell.getName() +" spell on " + $maxTroop.getName() + " because it's a ranged troop.");
+    update($result);
 end
 
 rule "Cast spell on unit with most health"
 agenda-group "spell-casting"
 salience 3
 when
+    $result : ResultRules()
+    $enemyUserTroopRule : UserTroopRule(getIsFriendly() == false)
+    $spells : List() from collect(Spell())
+
+    $maxSpellDamage : Number() from accumulate(
+            Spell( $damage : damage ),
+            max($damage)
+        )
+    $maxSpell : Spell( damage == $maxSpellDamage )
+
+    $maxHealth : Number() from accumulate(
+        TroopRule( $health : (troopHealthPoints * (troopCount - 1) + totalHealthPoints) ) from $enemyUserTroopRule.getTroops(),
+        max($health)
+    )
+
+    $maxTroop : TroopRule( (troopHealthPoints * (troopCount - 1) + totalHealthPoints) == $maxHealth ) from $enemyUserTroopRule.getTroops()
 then
+    $result.setResult("You should cast " + $maxSpell.getName() + " spell on " + $maxTroop.getName() + " because it has the most health.");
+    update($result);
 end
 
 rule "Calculate troop strength"

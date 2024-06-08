@@ -17,11 +17,15 @@ import java.util.stream.Collectors;
 @Service
 public class TroopService {
     private final TroopRepository troopRepository;
-    private final KieSession kieSession;
+    private final KieContainer kieContainer;
 
     public TroopService(TroopRepository troopRepository, KieContainer kieContainer) {
         this.troopRepository = troopRepository;
-        this.kieSession = kieContainer.getKieBase("bwBase").newKieSession();
+        this.kieContainer = kieContainer;
+    }
+
+    public List<Troop> getAllTroops() {
+        return troopRepository.findAll();
     }
 
     public ResultRules bestMove(CurrentUserDTO currentUserDTO) {
@@ -54,6 +58,7 @@ public class TroopService {
 
     private ResultRules calculateOptimalMove(CurrentUserDTO currentUserDTO, UserTroopRule ownTroops, UserTroopRule enemyTroops, ResultRules resultRules) {
 
+        KieSession kieSession = kieContainer.getKieBase("bwBase").newKieSession();
         kieSession.insert(currentUserDTO);
         kieSession.insert(ownTroops);
         kieSession.insert(enemyTroops);

@@ -32,18 +32,22 @@ public class UserTroopRule {
         isFriendly = friendly;
     }
 
-    public TroopRule getStrongestTroopWithVulnerabilityList(List<Spell> spellList){
-        System.out.println(spellList.toString());
-        TroopRule strongestTroop = null;
+    public TroopSpellCast getStrongestTroopWithVulnerabilityList(List<Spell> spellList){
+        TroopSpellCast strongestTroop = null;
         for (TroopRule troop : troops) {
             for (Spell spell : spellList){
-                if (troop.getVulnerabilities() != null && troop.getVulnerabilities().contains(spell.getName()) && (strongestTroop == null || troop.getTotalHealthPoints() > strongestTroop.getTotalHealthPoints())) {
-                    strongestTroop = troop;
+                if (troop.getVulnerabilities() != null && troop.getVulnerabilities().contains(spell.getName()) && (strongestTroop == null || troop.getTotalHealthPoints() > strongestTroop.getTroopHealthPoints()) && (strongestTroop == null || strongestTroop.getSpellDmg() < spell.getDamage())) {
+                    if(strongestTroop == null){
+                        strongestTroop = new TroopSpellCast();
+                    }
+                    strongestTroop.setTroopName(troop.getName());
+                    strongestTroop.setTroopHealthPoints(troop.getTotalHealthPoints());
+                    strongestTroop.setSpellName(spell.getName());
+                    strongestTroop.setSpellDmg(spell.getDamage());
                     break;
                 }
             }
         }
-        System.out.println(strongestTroop.toString());
         return strongestTroop;
     }
 }

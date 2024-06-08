@@ -16,27 +16,35 @@ import stefan.nemanja.service.repositories.TroopRepository;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class SpellService {
     private final SpellRepository spellRepository;
     private final TroopRepository troopRepository;
-    private final KieSession kieSession;
+    private final KieContainer kieContainer;
 
     public SpellService(SpellRepository spellRepository, TroopRepository troopRepository, KieContainer kieContainer) {
         this.spellRepository = spellRepository;
         this.troopRepository = troopRepository;
-        this.kieSession = kieContainer.getKieBase("forwardKbase").newKieSession();
+        this.kieContainer = kieContainer;
     }
 
     public ResultRules castSpell(CurrentUserDTO currentUserDTO) {
         List<Spell> spells = getSpellsByIds(currentUserDTO.getAvailableSpells());
 
+        spells = spells.stream()
+                .filter(spell -> currentUserDTO.getSpellPoints() >= spell.getCost())
+                .toList();
+
         UserTroopRule enemyUserTroopRule = createUserTroopRule(currentUserDTO, false);
         UserTroopRule ownUserTroopRule = createUserTroopRule(currentUserDTO, true);
         ResultRules resultRules = new ResultRules();
 
+        KieSession kieSession = kieContainer.getKieBase("forwardKbase").newKieSession();
+        kieSession.getAgenda().getAgendaGroup("spell-casting").setFocus();
         kieSession.insert(currentUserDTO);
+
         for (Spell spell : spells) {
             kieSession.insert(spell);
         }
@@ -45,7 +53,6 @@ public class SpellService {
         kieSession.insert(ownUserTroopRule);
         kieSession.insert(resultRules);
 
-        kieSession.getAgenda().getAgendaGroup("spell-casting").setFocus();
         kieSession.fireAllRules();
         kieSession.dispose();
 

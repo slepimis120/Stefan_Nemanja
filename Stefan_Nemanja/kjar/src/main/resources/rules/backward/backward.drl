@@ -1,7 +1,9 @@
-import stefan.nemanja.model.models.rules.Position;
-import stefan.nemanja.model.models.rules.PositionList;
-import java.util.List;
-import java.util.ArrayList;
+package backward
+
+import stefan.nemanja.model.models.rules.Position
+import stefan.nemanja.model.models.rules.PositionList
+import java.util.List
+import java.util.ArrayList
 
 function void updateNeighbors(Position currentPosition, PositionList neighbors, int depth) {
     List<Position> newNeighbors = new ArrayList<>();

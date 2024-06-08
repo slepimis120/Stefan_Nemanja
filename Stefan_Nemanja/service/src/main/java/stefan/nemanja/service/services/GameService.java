@@ -3,10 +3,9 @@ package stefan.nemanja.service.services;
 import org.kie.api.runtime.KieContainer;
 import org.kie.api.runtime.KieSession;
 import org.springframework.stereotype.Service;
-import stefan.nemanja.model.models.Troop;
+import stefan.nemanja.model.models.Spell;
 import stefan.nemanja.model.models.dto.CurrentUserDTO;
 import stefan.nemanja.model.models.rules.ResultRules;
-import stefan.nemanja.model.models.rules.TroopRule;
 import stefan.nemanja.model.models.rules.UserTroopRule;
 
 import java.util.List;
@@ -24,11 +23,19 @@ public class GameService {
     }
 
     public ResultRules getBestMove(CurrentUserDTO currentUserDTO) {
+        List<Spell> spells = spellService.getSpellsByIds(currentUserDTO.getAvailableSpells());
+
         KieSession kieSession = kieContainer.getKieBase("forwardKbase").newKieSession();
-        kieSession.insert(currentUserDTO);
         kieSession.getAgenda().getAgendaGroup("spell-check").setFocus();
+        kieSession.insert(currentUserDTO);
+
+        for (Spell spell : spells) {
+            kieSession.insert(spell);
+        }
+
         kieSession.fireAllRules();
         kieSession.dispose();
+
         if (currentUserDTO.isCanCastSpell()) {
             return spellService.castSpell(currentUserDTO);
         }
@@ -48,7 +55,6 @@ public class GameService {
         kieSession.insert(enemyTroops);
         kieSession.getAgenda().getAgendaGroup("troop-strength").setFocus();
         kieSession.fireAllRules();
-        kieSession.dispose();
 
         return resultRules;
     }
