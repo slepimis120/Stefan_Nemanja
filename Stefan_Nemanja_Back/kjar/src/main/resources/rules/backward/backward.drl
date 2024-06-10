@@ -1,0 +1,24 @@
+package backward
+
+import stefan.nemanja.model.models.rules.NodeRule
+import stefan.nemanja.model.models.Tile
+import java.util.List
+import java.util.ArrayList
+
+
+query isContainedIn(int $value1, int $value2, int $i, int $j)
+    NodeRule($value1, $value2, $i, $j;)
+    or
+    (NodeRule(z, w, $i, $j;) and isContainedIn($value1, $value2, z, w;))
+end
+
+rule "Check If Enemy In Tree"
+when
+    $troopNode : Tile()
+    $i : Integer() from $troopNode.getI()
+    $j : Integer() from $troopNode.getJ()
+    isContainedIn($i, $j, parameter1, parameter2;)
+then
+    System.out.println("Enemy troop found in the tree");
+    drools.halt();
+end
