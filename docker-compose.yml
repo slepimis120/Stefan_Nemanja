@@ -1,4 +1,4 @@
-services:
+﻿services:
   postgres:
     image: postgres
     container_name: postgres_db
@@ -9,13 +9,16 @@ services:
     ports:
       - "5432:5432"
 
-
   react-app:
     build:
-      context: ./stefan_nemanja_front
+      context: ./Stefan_Nemanja_Front
       dockerfile: Dockerfile
     ports:
       - "3000:3000"
     environment:
-      NODE_ENV: production
-
+      NODE_ENV: development
+    volumes:
+      - ./Stefan_Nemanja_Front:/usr/src/app
+      - /usr/src/app/node_modules
+    stdin_open: true
+    tty: true

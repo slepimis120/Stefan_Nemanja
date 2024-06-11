@@ -134,8 +134,26 @@
 
 		<dependency>
 			<groupId>org.drools</groupId>
+			<artifactId>drools-decisiontables</artifactId>
+			<version>9.44.0.Final</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.drools</groupId>
 			<artifactId>drools-xml-support</artifactId>
 			<version>9.44.0.Final</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.apache.poi</groupId>
+			<artifactId>poi</artifactId>
+			<version>5.2.3</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.apache.poi</groupId>
+			<artifactId>poi-ooxml</artifactId>
+			<version>5.2.3</version>
 		</dependency>
 
 	</dependencies>

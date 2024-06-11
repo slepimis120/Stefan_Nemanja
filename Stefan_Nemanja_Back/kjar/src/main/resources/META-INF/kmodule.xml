@@ -5,4 +5,8 @@
     <kbase name="forwardKbase" packages="forward">
         <ksession name="forwardKsession"/>
     </kbase>
+
+    <kbase name="template-simple-KBase" packages="template">
+        <ksession name="templateSimpleKsession"/>
+    </kbase>
 </kmodule>

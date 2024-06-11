@@ -1,0 +1,35 @@
+template header
+    percentThreshold
+    isAdvantage
+    category
+
+package template;
+
+import stefan.nemanja.model.models.rules.ResultRules
+import stefan.nemanja.model.models.rules.TroopRule
+import stefan.nemanja.model.models.rules.UserTroopRule
+
+template "ranking_rules"
+
+rule "Categorize Battle_@{row.rowNumber}"
+when
+    $result : ResultRules()
+    $userTroopRule : UserTroopRule(getIsFriendly() == true)
+    $ourStrength : Number() from accumulate (
+        $troop : TroopRule() from $userTroopRule.getTroops(),
+        sum($troop.getFightValue() * $troop.getTroopCount())
+    )
+    $userTroopRule2 : UserTroopRule(getIsFriendly() == false)
+    $enemyStrength : Number() from accumulate (
+        $troop : TroopRule() from $userTroopRule2.getTroops(),
+        sum($troop.getFightValue() * $troop.getTroopCount())
+    )
+    eval(
+        ((@{isAdvantage} == 1) && ($ourStrength.doubleValue() > $enemyStrength.doubleValue() && ($ourStrength.doubleValue() / $enemyStrength.doubleValue() - 1) * 100 > @{percentThreshold}))
+        || ((@{isAdvantage} == 0) && ($enemyStrength.doubleValue() > $ourStrength.doubleValue() && ($enemyStrength.doubleValue() / $ourStrength.doubleValue() - 1) * 100 > @{percentThreshold}))
+    )
+then
+    $result.setResult("Battle classified as: @{category}. Our troops have " + $ourStrength.doubleValue() + " strength, enemy troops have " + $enemyStrength.doubleValue() + " strength.");
+end
+
+end template
