@@ -78,4 +78,8 @@ public class SpellService {
 
         return new UserTroopRule(troops, isFriendly);
     }
+
+    public List<Spell> getAllSpells() {
+        return spellRepository.findAll();
+    }
 }
