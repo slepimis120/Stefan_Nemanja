@@ -43,12 +43,18 @@ public class GameService {
         kieSession.fireAllRules();
         kieSession.dispose();
 
+        ResultRules rule;
+
         if (currentUserDTO.isCanCastSpell()) {
-            return spellService.castSpell(currentUserDTO);
+            rule = spellService.castSpell(currentUserDTO);
         }
         else{
-            return troopService.bestMove(currentUserDTO);
+            rule = troopService.bestMove(currentUserDTO);
         }
+
+        ResultRules troopStrength = getTroopStrength(currentUserDTO);
+        rule.setResult(rule.getResult() + "\n" +troopStrength.getResult());
+        return rule;
     }
 
     public ResultRules getTroopStrength(CurrentUserDTO currentUserDTO) {

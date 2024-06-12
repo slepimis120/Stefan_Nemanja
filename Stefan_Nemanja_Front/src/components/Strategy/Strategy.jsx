@@ -104,6 +104,13 @@ const Strategy = () => {
         setShowPopup(false);
     };
 
+    const handleSpellPoints = (e) => {
+        const value = parseInt(e.target.value);
+        if (value >= 0) {
+            setSpellPoints(value);
+        }
+    };
+
 
     return (
         <div className="strategy-background">
@@ -175,7 +182,7 @@ const Strategy = () => {
                     </label>
                     <label>
                         Spell Points:
-                        <input type="number" value={spellPoints} onChange={(e) => setSpellPoints(e.target.value)}/>
+                        <input type="number" value={spellPoints} onChange={handleSpellPoints}/>
                     </label>
                     <label>
                         Used Spell:

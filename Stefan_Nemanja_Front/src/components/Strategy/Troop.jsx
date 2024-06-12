@@ -42,6 +42,34 @@ const Troop = ({ troopTypes, onRemove, index, className, troopId, onChange }) =>
         onChange(index, { troopType: selectedTroop.type, troopName, troopCount, health, iPosition, jPosition, ammo, onMove, hasWaited, id: selectedTroop.id });
     };
 
+    const handleIPositionChange = (e) => {
+        const value = parseInt(e.target.value);
+        if (value >= 0 && value <= 10) {
+            setIPosition(value);
+        }
+    };
+
+    const handleJPositionChange = (e) => {
+        const value = parseInt(e.target.value);
+        if (value >= 0 && value <= 15) {
+            setJPosition(value);
+        }
+    };
+
+    const handleCountChange = (e) => {
+        const value = parseInt(e.target.value);
+        if (value >= 0) {
+            setTroopCount(value);
+        }
+    };
+
+    const handleHealthChange = (e) => {
+        const value = parseInt(e.target.value);
+        if (value >= 0) {
+            setHealth(value);
+        }
+    };
+
 
     return (
         <div className={`troop-container ${className}`}>
@@ -57,19 +85,19 @@ const Troop = ({ troopTypes, onRemove, index, className, troopId, onChange }) =>
                 </label>
                 <label>
                     Count:
-                    <input type="number" value={troopCount} onChange={(e) => setTroopCount(parseInt(e.target.value))} placeholder="Count" />
+                    <input type="number" value={troopCount} onChange={handleCountChange} placeholder="Count" />
                 </label>
                 <label>
                     Health:
-                    <input type="number" value={health} onChange={(e) => setHealth(parseInt(e.target.value))} placeholder="Health" />
+                    <input type="number" value={health} onChange={handleHealthChange} placeholder="Health" />
                 </label>
                 <label>
                     i Pos:
-                    <input type="number" value={iPosition} onChange={(e) => setIPosition(parseInt(e.target.value))} placeholder="i Pos" />
+                    <input type="number" value={iPosition} onChange={handleIPositionChange} placeholder="i Pos" />
                 </label>
                 <label>
                     j Pos:
-                    <input type="number" value={jPosition} onChange={(e) => setJPosition(parseInt(e.target.value))} placeholder="j Pos" />
+                    <input type="number" value={jPosition} onChange={handleJPositionChange}  placeholder="j Pos" />
                 </label>
                 {troopType === 'RANGED' && (
                     <label>
@@ -83,10 +111,12 @@ const Troop = ({ troopTypes, onRemove, index, className, troopId, onChange }) =>
                         Has Waited:
                     </label>
                 )}
-                <label className="on-move-label">
-                    <input type="checkbox" checked={onMove} onChange={(e) => setOnMove(e.target.checked)} />
-                    On Move
-                </label>
+                {className === "our-troop" && (
+                    <label className="on-move-label">
+                        <input type="checkbox" checked={onMove} onChange={(e) => setOnMove(e.target.checked)} />
+                        On Move
+                    </label>
+                )}
             </div>
             <button className="remove-button" onClick={handleRemove}>Remove</button>
         </div>

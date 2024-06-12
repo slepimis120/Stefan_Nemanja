@@ -38,9 +38,12 @@ public class TroopService {
         ResultRules resultRules = new ResultRules();
 
         if (canAttack(ownUserTroopRule, enemyUserTroopRule)) {
-            return null;
+            resultRules.setResult("You should definitely attack enemy that's closest to you.");
+            return resultRules;
         } else {
-            return calculateOptimalMove(currentUserDTO, enemyUserTroopRule, ownUserTroopRule, resultRules);
+            resultRules.setResult("You should definitely move closer to enemy.");
+            return resultRules;
+            //return calculateOptimalMove(currentUserDTO, enemyUserTroopRule, ownUserTroopRule, resultRules);
         }
     }
 
