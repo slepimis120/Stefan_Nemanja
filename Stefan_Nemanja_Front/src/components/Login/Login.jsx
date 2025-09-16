@@ -24,9 +24,7 @@ const Login = () => {
         if (response.ok) {
             const data = await response.json();
             localStorage.setItem('jwt', data.token);
-            navigate('/');
-        } else {
-            // Handle error
+            navigate('/home', { replace: true });
         }
     };
 

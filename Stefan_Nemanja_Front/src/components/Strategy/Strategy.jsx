@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import Troop from './Troop';
 import './Strategy.css';
-import SpellSelection from "./SpellSelection"; // Make sure to import the CSS file
+import SpellSelection from "./SpellSelection";
 
 const Strategy = () => {
     const [ourTroops, setOurTroops] = useState([]);
@@ -24,7 +24,6 @@ const Strategy = () => {
     };
 
     useEffect(() => {
-        // Fetch all troops and spells from the server when the component loads
         fetch('http://localhost:8080/troop/allTroops', {
             headers: {
                 'Authorization': `Bearer ${token}`
@@ -51,10 +50,7 @@ const Strategy = () => {
     };
 
     const handleLogout = () => {
-        // Implement logout logic here
-        // For example:
         localStorage.removeItem('jwt');
-        // Redirect user to login page
         window.location.href = '/login';
     };
 
@@ -95,7 +91,6 @@ const Strategy = () => {
             setShowPopup(true);
         } catch (error) {
             console.error('Error:', error);
-            // Handle error if necessary
         }
 
     };

@@ -1,7 +1,6 @@
 package stefan.nemanja.service.services;
 
 import org.drools.decisiontable.ExternalSpreadsheetCompiler;
-import org.kie.api.KieBase;
 import org.kie.api.builder.Message;
 import org.kie.api.builder.Results;
 import org.kie.api.io.ResourceType;
@@ -64,7 +63,6 @@ public class GameService {
 
         InputStream template = getClass().getResourceAsStream("/rules/template/troopStrength.drt");
         InputStream data = getClass().getResourceAsStream("/rules/template/troopStrength.xls");
-
         ExternalSpreadsheetCompiler converter = new ExternalSpreadsheetCompiler();
         String drl = converter.compile(data, template, 2, 1);
 
